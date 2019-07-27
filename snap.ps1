@@ -34,8 +34,12 @@ Write-Host -ForegroundColor Red "Running: Snap! on $($everything.Count) files"
 
 ForEach ($thing in $everything) {
     if ((Thanos)) {
-        Write-Host -ForegroundColor Red "$(QuotePurge) : $($thing.FullName)..."
-        $thing | rm -Force -Confirm:$false
+        Try{
+            Write-Host -ForegroundColor Red "$(QuotePurge) : $($thing.FullName)..."
+            $thing | rm -Force -Confirm:$false
+        }Catch{
+            $_ | Out-Null
+        }
     }else{
         Write-Host -ForegroundColor Cyan "Thanos is merciful, spared: $($thing.FullName)"
     }
